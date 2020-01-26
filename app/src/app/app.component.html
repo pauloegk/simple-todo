@@ -1,0 +1,36 @@
+<div nz-row nzType="flex" nzJustify="center" nzAlign="center" class="todo">
+  <div nz-col nzSpan="10">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input type="text" [(ngModel)]="itemName" nz-input placeholder="Adicione uma tarefa" />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="submitItem()"><i nz-icon
+          [nzType]=" updating ? 'check' : 'plus-square' "></i></button>
+    </ng-template>
+  </div>
+</div>
+<div nz-row nzType="flex" nzJustify="center" nzAlign="center" class="list">
+  <div nz-col nzSpan="10">
+    <nz-list nzBordered class="demo-loadmore-list" [nzDataSource]="items" [nzItemLayout]="'horizontal'"
+      [nzRenderItem]="item">
+      <ng-template #item let-item>
+        <nz-list-item [nzActions]="item.loading ? [] : [editAction, deleteAction]">
+          <nz-skeleton [nzLoading]="item.loading">
+            <nz-list-item-meta [nzTitle]="nzTitle">
+              <ng-template #nzTitle>
+                <label nz-checkbox [(ngModel)]="item.done" (ngModelChange)="doneItem(item)">{{item.name}}</label>
+              </ng-template>
+            </nz-list-item-meta>
+            <ng-template #editAction>
+              <a (click)="edit(item)"><i nz-icon nzType="edit" nzTheme="outline"></i></a>
+            </ng-template>
+            <ng-template #deleteAction>
+              <span class="delete-item" (click)="delete(item.id)"><i nz-icon nzType="delete"
+                  nzTheme="outline"></i></span>
+            </ng-template>
+          </nz-skeleton>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+  </div>
+</div>
