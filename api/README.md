@@ -1,5 +1,7 @@
 # API
 
 Para iniciar o servidor
-    npm install
-    npm start
+
+npm install
+
+npm start
